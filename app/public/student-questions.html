@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions — Coding Platform</title>
+    <link rel="stylesheet" href="admin.css">
+    <style>
+        .nav { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+        .nav a { color: #3b82f6; text-decoration: none; font-size: 0.95rem; }
+        .nav a:hover { text-decoration: underline; }
+        .questions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .question-card { background: #111827; border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); transition: all 0.3s ease; }
+        .question-card:hover { border-color: #2563eb; transform: translateY(-2px); }
+        .question-card h3 { margin: 0 0 10px; font-size: 1.1rem; color: #ffffff; }
+        .question-card p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 14px; line-height: 1.5; }
+        .question-meta { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+        .badge { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+        .badge-category { background: #1f2937; color: #94a3b8; }
+        .badge-difficulty { background: #1f2937; color: #4ade80; }
+        .question-card a { display: inline-block; padding: 10px 18px; background: #2563eb; color: white; border-radius: 8px; text-decoration: none; font-weight: 600; }
+        .question-card a:hover { background: #1d4ed8; }
+    </style>
+</head>
+<body>
+    <main style="max-width: 960px; margin: 0 auto; padding: 24px;">
+        <h1>Coding Questions</h1>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <button type="button" class="primary" onclick="location.href='/public/student-dashboard.html'">← Back to Dashboard</button>
+            <button type="button" class="danger" id="logoutLink">Logout</button>
+        </div>
+
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+
+        <div id="questionsGrid" class="questions-grid"></div>
+    </main>
+
+    <script src="student-questions.js"></script>
+</body>
+</html>

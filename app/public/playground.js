@@ -1,9 +1,4 @@
-// CodeMirror mode map
-const MODES = {
-  cpp: "text/x-c++src",
-  python: "python",
-  javascript: "javascript",
-};
+const API_BASE = "";
 
 // Default code templates per language
 const TEMPLATES = {
@@ -12,40 +7,27 @@ const TEMPLATES = {
   javascript: 'console.log("Hello, World!");\n',
 };
 
-// Initialize CodeMirror
-const editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
-  mode: MODES.cpp,
-  theme: "dracula",
-  lineNumbers: true,
-  indentUnit: 4,
-  tabSize: 4,
-  indentWithTabs: false,
-  lineWrapping: false,
-  matchBrackets: true,
-  autoCloseBrackets: true,
-  extraKeys: {
-    "Ctrl-Enter": function () { runCode(); },
-    "Cmd-Enter": function () { runCode(); },
-    Tab: function (cm) {
-      cm.replaceSelection("    ", "end");
-    },
-  },
+const editorEl = document.getElementById("editor");
+editorEl.value = TEMPLATES.cpp;
+
+// Ctrl+Enter / Cmd+Enter to run
+editorEl.addEventListener("keydown", function (e) {
+  if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+    e.preventDefault();
+    runCode();
+  }
 });
 
-editor.setValue(TEMPLATES.cpp);
-
-// Switch language mode
+// Switch language template
 document.getElementById("language").addEventListener("change", function () {
   const lang = this.value;
-  editor.setOption("mode", MODES[lang]);
-  editor.setValue(TEMPLATES[lang] || "");
-  editor.focus();
+  editorEl.value = TEMPLATES[lang] || "";
 });
 
 // Run code
 async function runCode() {
   const language = document.getElementById("language").value;
-  const code = editor.getValue();
+  const code = editorEl.value;
   const input = document.getElementById("userInput").value;
   const stdoutEl = document.getElementById("stdout");
   const stderrEl = document.getElementById("stderr");
@@ -61,7 +43,7 @@ async function runCode() {
   const startTime = performance.now();
 
   try {
-    const response = await fetch("/api/run", {
+    const response = await fetch(`${API_BASE}/api/playground/run`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ language, code, input }),
@@ -107,61 +89,16 @@ async function runCode() {
   } finally {
     runBtn.disabled = false;
     runBtn.textContent = "\u25B6 Run";
-    loadHistory();
   }
 }
 
 // Clear
 function clearCode() {
   const lang = document.getElementById("language").value;
-  editor.setValue(TEMPLATES[lang] || "");
+  editorEl.value = TEMPLATES[lang] || "";
   document.getElementById("userInput").value = "";
   document.getElementById("stdout").textContent = "";
   document.getElementById("stderr").textContent = "";
   document.getElementById("status").textContent = "";
-  editor.focus();
+  editorEl.focus();
 }
-
-// Load submission history
-async function loadHistory() {
-  const listEl = document.getElementById("historyList");
-  listEl.innerHTML = "<em>Loading...</em>";
-  try {
-    const res = await fetch("/api/submissions?limit=10");
-    const data = await res.json();
-    if (!data.submissions || data.submissions.length === 0) {
-      listEl.innerHTML = "<em>No submissions yet.</em>";
-      return;
-    }
-    listEl.innerHTML = data.submissions.map(function (s) {
-      const status = s.timedOut ? "timeout" : s.exitCode === 0 ? "ok" : "error";
-      const icon = status === "ok" ? "\u2705" : status === "timeout" ? "\u23F1" : "\u274C";
-      const preview = s.code.split("\n")[0].slice(0, 50);
-      return '<div class="history-item history-' + status + '" onclick=\'loadSubmission(' + JSON.stringify(JSON.stringify(s)) + ')\'>'
-        + '<span class="history-icon">' + icon + '</span>'
-        + '<span class="history-lang">' + s.language + '</span>'
-        + '<span class="history-preview">' + escapeHtml(preview) + '</span>'
-        + '<span class="history-time">' + s.createdAt + '</span>'
-        + '</div>';
-    }).join("");
-  } catch (e) {
-    listEl.innerHTML = "<em>Failed to load history.</em>";
-  }
-}
-
-function escapeHtml(str) {
-  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-}
-
-function loadSubmission(jsonStr) {
-  const s = JSON.parse(jsonStr);
-  document.getElementById("language").value = s.language;
-  editor.setOption("mode", MODES[s.language]);
-  editor.setValue(s.code);
-  document.getElementById("userInput").value = s.input || "";
-  document.getElementById("stdout").textContent = s.stdout || "";
-  document.getElementById("stderr").textContent = s.stderr || "";
-}
-
-// Load history on page load
-loadHistory();

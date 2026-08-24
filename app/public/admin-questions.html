@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Questions | Online Compiler</title>
+
+<link rel="stylesheet" href="/public/admin.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <h2>Compiler Admin</h2>
+
+        <ul>
+            <li><a href="/public/admin-dashboard.html">Dashboard</a></li>
+            <li class="active"><a href="/public/admin-questions.html">Questions</a></li>
+            <li><a href="#" onclick="logout(); return false;">Logout</a></li>
+        </ul>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="content">
+        <h2>Questions</h2>
+
+        <div id="status" class="status"></div>
+
+        <button class="primary" onclick="location.href='/public/add-question.html'">Add New Question</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Sr No</th>
+                    <th>Title</th>
+                    <th>Difficulty</th>
+                    <th>Category</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="questionTable"></tbody>
+        </table>
+    </div>
+</div>
+
+<script src="/public/shared.js"></script>
+<script src="/public/admin-questions.js"></script>
+
+</body>
+</html>

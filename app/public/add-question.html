@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Question | Online Compiler</title>
+  <link rel="stylesheet" href="/public/admin.css">
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>Compiler Admin</h2>
+      <ul>
+        <li><a href="/public/admin-dashboard.html">Dashboard</a></li>
+        <li class="active"><a href="/public/admin-questions.html">Questions</a></li>
+        <li><a href="#" onclick="logout(); return false;">Logout</a></li>
+      </ul>
+    </aside>
+
+    <div class="content">
+      <div class="dashboard-header">
+        <h2 id="pageTitle">Add Question</h2>
+      </div>
+
+      <div id="status" class="status"></div>
+
+      <form id="questionForm">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input id="title" type="text" placeholder="Question title" required>
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" placeholder="Description" rows="4"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="category">Category</label>
+          <input id="category" type="text" placeholder="Category">
+        </div>
+        <div class="form-group">
+          <label for="difficulty">Difficulty</label>
+          <select id="difficulty">
+            <option>Easy</option>
+            <option>Medium</option>
+            <option>Hard</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="toggle">
+            <input type="checkbox" id="published" checked>
+            <span class="slider"></span>
+            <span class="label">Published</span>
+          </label>
+        </div>
+        <button type="submit" class="primary" id="saveBtn">Save Question</button>
+      </form>
+
+      <div id="testCaseSection" style="display:none; margin-top: 30px;">
+        <h3>Test Cases</h3>
+        <div class="form-group">
+          <label for="testInput">Input</label>
+          <textarea id="testInput" rows="3" placeholder="Test input"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="testExpected">Expected Output</label>
+          <textarea id="testExpected" rows="3" placeholder="Expected output"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="toggle">
+            <input type="checkbox" id="testHidden">
+            <span class="slider"></span>
+            <span class="label">Hidden</span>
+          </label>
+        </div>
+        <button type="button" class="primary" onclick="addTestCase()">Add Test Case</button>
+
+        <table style="margin-top: 20px;">
+          <thead>
+            <tr>
+              <th>Sr No</th>
+              <th>Input</th>
+              <th>Expected Output</th>
+              <th>Visibility</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="testcaseTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="/public/shared.js"></script>
+  <script src="/public/add-question.js"></script>
+</body>
+</html>

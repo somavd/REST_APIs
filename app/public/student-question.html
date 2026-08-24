@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solve Question — Coding Platform</title>
+    <link rel="stylesheet" href="admin.css">
+    <style>
+        .nav { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+        .nav a { color: #3b82f6; text-decoration: none; font-size: 0.95rem; }
+        .nav a:hover { text-decoration: underline; }
+        .question-card { background: #111827; border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); margin-bottom: 20px; }
+        .question-card h2 { margin: 0 0 10px; font-size: 1.3rem; }
+        .question-card p { color: #d1d5db; line-height: 1.6; }
+        .testcase-list { list-style: none; padding: 0; margin: 0; }
+        .testcase-list li { background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 12px; margin-bottom: 10px; color: #d1d5db; }
+        .testcase-list strong { color: #94a3b8; }
+        .code-editor { width: 100%; min-height: 300px; background: #0f172a; color: #f8fafc; border: 1px solid #334155; border-radius: 8px; padding: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 14px; }
+        .output-box { background: #0f172a; color: #f8fafc; border: 1px solid #334155; border-radius: 8px; padding: 16px; margin-top: 12px; min-height: 80px; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <main style="max-width: 960px; margin: 0 auto; padding: 24px;">
+        <h1 id="title">Question</h1>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <button type="button" class="primary" onclick="location.href='/public/student-dashboard.html'">← Back to Dashboard</button>
+            <button type="button" class="danger" id="logoutLink">Logout</button>
+        </div>
+
+        <div id="description" class="question-card"></div>
+
+        <div class="question-card">
+            <h2>Public Test Cases</h2>
+            <ul id="testcases" class="testcase-list"></ul>
+        </div>
+
+        <div class="question-card">
+            <h2>Your Code</h2>
+            <div class="form-group">
+                <label for="language">Language</label>
+                <select id="language">
+                    <option value="cpp">C++</option>
+                    <option value="python">Python</option>
+                    <option value="javascript">JavaScript</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <textarea id="code" class="code-editor" rows="15" placeholder="Write your solution here..."></textarea>
+            </div>
+            <button id="submitButton" class="primary">Submit</button>
+        </div>
+
+        <div id="status" class="status" role="status" aria-live="polite" style="margin-top: 16px;"></div>
+        <pre id="output" class="output-box"></pre>
+    </main>
+
+    <script src="student-question.js"></script>
+</body>
+</html>

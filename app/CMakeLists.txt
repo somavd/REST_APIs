@@ -50,6 +50,7 @@ add_executable(online_compiler
     src/executor.cpp
     src/rate_limiter.cpp
     src/database.cpp
+    src/auth.cpp
 )
 
 target_include_directories(online_compiler PRIVATE
