@@ -43,7 +43,7 @@ async function runCode() {
   const startTime = performance.now();
 
   try {
-    const response = await fetch(`${API_BASE}/api/run`, {
+    const response = await fetch(`${API_BASE}/api/playground/run`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ language, code, input }),
@@ -89,7 +89,6 @@ async function runCode() {
   } finally {
     runBtn.disabled = false;
     runBtn.textContent = "\u25B6 Run";
-    loadHistory();
   }
 }
 
@@ -103,70 +102,3 @@ function clearCode() {
   document.getElementById("status").textContent = "";
   editorEl.focus();
 }
-
-// Cached submissions for click-to-load
-let historyCache = [];
-
-// Load submission history
-async function loadHistory() {
-  const listEl = document.getElementById("historyList");
-  listEl.textContent = "Loading...";
-  try {
-    const res = await fetch(`${API_BASE}/api/submissions?limit=5`);
-    const data = await res.json();
-    historyCache = data.submissions || [];
-    if (historyCache.length === 0) {
-      listEl.textContent = "No submissions yet.";
-      return;
-    }
-    // Build DOM safely — no innerHTML with user data
-    listEl.innerHTML = "";
-    historyCache.forEach(function (s, idx) {
-      const status = s.timedOut ? "timeout" : s.exitCode === 0 ? "ok" : "error";
-      const icon = status === "ok" ? "\u2705" : status === "timeout" ? "\u23F1" : "\u274C";
-      const preview = s.code.split("\n")[0].slice(0, 50);
-
-      const row = document.createElement("div");
-      row.className = "history-item history-" + status;
-      row.dataset.index = idx;
-      row.addEventListener("click", function () { loadSubmission(idx); });
-
-      const iconSpan = document.createElement("span");
-      iconSpan.className = "history-icon";
-      iconSpan.textContent = icon;
-
-      const langSpan = document.createElement("span");
-      langSpan.className = "history-lang";
-      langSpan.textContent = s.language;
-
-      const previewSpan = document.createElement("span");
-      previewSpan.className = "history-preview";
-      previewSpan.textContent = preview;
-
-      const timeSpan = document.createElement("span");
-      timeSpan.className = "history-time";
-      timeSpan.textContent = s.createdAt;
-
-      row.appendChild(iconSpan);
-      row.appendChild(langSpan);
-      row.appendChild(previewSpan);
-      row.appendChild(timeSpan);
-      listEl.appendChild(row);
-    });
-  } catch (e) {
-    listEl.textContent = "Failed to load history.";
-  }
-}
-
-function loadSubmission(idx) {
-  const s = historyCache[idx];
-  if (!s) return;
-  document.getElementById("language").value = s.language;
-  editorEl.value = s.code;
-  document.getElementById("userInput").value = s.input || "";
-  document.getElementById("stdout").textContent = s.stdout || "";
-  document.getElementById("stderr").textContent = s.stderr || "";
-}
-
-// Load history on page load
-loadHistory();

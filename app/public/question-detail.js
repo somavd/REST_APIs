@@ -9,7 +9,7 @@ async function loadQuestion() {
     }
 
     try {
-        const res = await fetch(`${API_BASE}/api/questions`);
+        const res = await fetch(`${API_BASE}/api/questions`, { credentials: "same-origin" });
         const data = await res.json();
         const questions = data.questions || [];
         const q = questions.find(item => item.id == questionId);
@@ -33,7 +33,7 @@ async function loadQuestion() {
 
 async function loadTestCases(questionId) {
     try {
-        const res = await fetch(`${API_BASE}/api/questions/${questionId}/testcases`);
+        const res = await fetch(`${API_BASE}/api/questions/${questionId}/testcases`, { credentials: "same-origin" });
         const data = await res.json();
         const testcases = data.testcases || [];
         renderTestCases(testcases);
@@ -46,9 +46,9 @@ function renderTestCases(testcases) {
     const table = document.getElementById("testcaseTable");
     table.innerHTML = "";
 
-    testcases.forEach((t) => {
+    testcases.forEach((t, index) => {
         const row = document.createElement("tr");
-        row.appendChild(textCell(t.id));
+        row.appendChild(textCell(index + 1));
         row.appendChild(textCell(t.input));
         row.appendChild(textCell(t.expected_output));
         row.appendChild(textCell(t.is_hidden ? "Hidden" : "Public"));
@@ -56,4 +56,7 @@ function renderTestCases(testcases) {
     });
 }
 
-document.addEventListener("DOMContentLoaded", loadQuestion);
+document.addEventListener("DOMContentLoaded", async () => {
+    await requireAuth();
+    loadQuestion();
+});

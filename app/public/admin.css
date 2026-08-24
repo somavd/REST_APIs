@@ -537,3 +537,130 @@ tbody tr:last-child td {
 .question-meta strong {
     color: #ffffff;
 }
+
+/* ===========================
+   LOGIN
+=========================== */
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 400px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.login-card h1 {
+    margin: 0 0 8px 0;
+    font-size: 1.6rem;
+    color: #ffffff;
+}
+
+.login-card .description {
+    color: #94a3b8;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+}
+
+.login-form .form-group {
+    margin-bottom: 18px;
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 6px;
+    color: #cbd5e1;
+    font-size: 0.9rem;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    background: #0f172a;
+    color: #f8fafc;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.login-form input:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+.login-form button {
+    width: 100%;
+    margin-top: 8px;
+    padding: 12px;
+    font-size: 1rem;
+}
+
+.login-card .hint {
+    color: #64748b;
+    font-size: 0.85rem;
+    margin-top: 18px;
+    text-align: center;
+}
+
+.login-card .status {
+    margin-top: 16px;
+    margin-bottom: 0;
+}
+
+/* Toggle switch for boolean options (Published, Hidden) */
+.toggle {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    color: #e2e8f0;
+    font-weight: 500;
+}
+
+.toggle input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle .slider {
+    width: 44px;
+    height: 24px;
+    background: #475569;
+    border-radius: 24px;
+    position: relative;
+    margin-right: 12px;
+    transition: 0.2s;
+    flex-shrink: 0;
+}
+
+.toggle .slider::before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    transition: 0.2s;
+}
+
+.toggle input:checked + .slider {
+    background: #4ade80;
+}
+
+.toggle input:checked + .slider::before {
+    transform: translateX(20px);
+}

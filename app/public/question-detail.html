@@ -11,8 +11,20 @@
 <body>
 
 <div class="container">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <h2>Compiler Admin</h2>
+
+        <ul>
+            <li><a href="/public/admin-dashboard.html">Dashboard</a></li>
+            <li class="active"><a href="/public/admin-questions.html">Questions</a></li>
+            <li><a href="#" onclick="logout(); return false;">Logout</a></li>
+        </ul>
+    </aside>
+
     <div class="content">
         <button onclick="location.href='/public/admin-questions.html'" class="primary">← Back to Questions</button>
+        <button onclick="const qid = new URLSearchParams(location.search).get('id'); if (qid) location.href = '/public/add-question.html?id=' + qid;" class="primary" style="margin-left: 10px;">Edit Question</button>
 
         <div id="status" class="status"></div>
 
@@ -30,7 +42,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>Sr No</th>
                     <th>Input</th>
                     <th>Expected Output</th>
                     <th>Visibility</th>

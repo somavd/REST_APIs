@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Online Code Editor</title>
+  <title>Online Compiler Playground</title>
   <link rel="stylesheet" href="/public/compiler.css">
 </head>
 <body>
 
   <div class="container">
     <header>
-      <h1>Online Code Editor</h1>
-      <p class="subtitle">Write, compile & run code in the browser</p>
+      <h1>Online Compiler Playground</h1>
+      <p class="subtitle">Write, compile and run code. No login, no history saved.</p>
     </header>
 
     <div class="toolbar">
@@ -21,7 +21,7 @@
         <option value="javascript">JavaScript</option>
       </select>
       <div class="toolbar-actions">
-        <a href="/public/admin-dashboard.html">Admin</a>
+        <button id="challengeBtn" onclick="location.href='/public/student-login.html'">Challenge</button>
         <button id="runBtn" onclick="runCode()">&#9654; Run</button>
         <button id="clearBtn" onclick="clearCode()">Clear</button>
         <span id="status" class="status"></span>
@@ -46,17 +46,9 @@
       <textarea id="userInput" placeholder="Enter program input here (optional)..."></textarea>
     </div>
 
-    <div class="history-section">
-      <div class="panel-header">
-        Recent Submissions
-        <button id="refreshHistory" onclick="loadHistory()">Refresh</button>
-      </div>
-      <div id="historyList" class="history-list"></div>
-    </div>
-
     <div class="shortcut-hint">Ctrl+Enter to run</div>
   </div>
 
-  <script src="/public/script.js"></script>
+  <script src="/public/playground.js"></script>
 </body>
 </html>

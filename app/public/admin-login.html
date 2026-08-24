@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login — Online Compiler</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <main class="login-container">
+        <div class="login-card">
+            <h1>Admin Login</h1>
+            <p class="description">Enter your admin credentials to access the dashboard.</p>
+
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="admin@example.com" required autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="••••••" required>
+                </div>
+
+                <button type="submit" class="primary">Log In</button>
+            </form>
+
+            <div id="status" class="status" role="status" aria-live="polite"></div>
+        </div>
+    </main>
+
+    <script src="shared.js"></script>
+    <script src="admin-login.js"></script>
+</body>
+</html>

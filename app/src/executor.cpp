@@ -19,7 +19,8 @@
 namespace fs = std::filesystem;
 
 static const size_t MAX_OUTPUT_BYTES = 64 * 1024;  // 64KB per stream
-static const std::string TMP_BASE = "tmp";
+static const std::string TMP_BASE =
+    (fs::current_path() / "tmp_sessions").string();
 
 static std::string generateSessionId() {
     static std::mutex rngMutex;
@@ -222,6 +223,7 @@ ExecResult executeCode(
     // Build docker args
     std::vector<std::string> args = {
         "docker", "run", "--rm",
+        "--log-driver", "none",
         "--network", "none",
         "--memory", config.dockerMemoryLimit,
         "--cpus", config.dockerCpuLimit,

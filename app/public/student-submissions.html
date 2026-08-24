@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Submissions — Coding Platform</title>
+    <link rel="stylesheet" href="admin.css">
+    <style>
+        .nav { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+        .nav a { color: #3b82f6; text-decoration: none; font-size: 0.95rem; }
+        .nav a:hover { text-decoration: underline; }
+        .submissions-list { display: flex; flex-direction: column; gap: 16px; }
+        .submission-card { background: #111827; border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); transition: all 0.3s ease; }
+        .submission-card:hover { border-color: #2563eb; transform: translateY(-2px); }
+        .submission-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .submission-header .sub-id { color: #94a3b8; font-size: 0.85rem; }
+        .submission-header .sub-lang { background: #1f2937; color: #4ade80; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+        .submission-body { color: #d1d5db; margin-bottom: 12px; }
+        .submission-body strong { color: #ffffff; }
+        .output-snippet { background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 12px; margin-top: 8px; white-space: pre-wrap; max-height: 120px; overflow: auto; color: #f8fafc; }
+        .submission-footer { color: #64748b; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <main style="max-width: 960px; margin: 0 auto; padding: 24px;">
+        <h1>My Submissions</h1>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <button type="button" class="primary" onclick="location.href='/public/student-dashboard.html'">← Back to Dashboard</button>
+            <button type="button" class="danger" id="logoutLink">Logout</button>
+        </div>
+
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+
+        <div id="submissionsList" class="submissions-list"></div>
+    </main>
+
+    <script src="student-submissions.js"></script>
+</body>
+</html>
